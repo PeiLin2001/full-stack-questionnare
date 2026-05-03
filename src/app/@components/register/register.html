@@ -1,0 +1,48 @@
+<section class="register-page">
+  <div class="form-container">
+    <h1 class="form-title">Register</h1>
+
+    <form>
+      <div class="form-head">
+        <div class="form-group flex-2">
+          <label for="name">name</label>
+          <input type="text" id="name" placeholder="Your name"
+          [(ngModel)] = 'user.name'
+          [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="form-group flex-1">
+          <label for="age">age</label>
+
+          <div class="select-wrapper">
+            <select id="age"
+            [(ngModel)] = 'user.age'
+            [ngModelOptions]="{standalone: true}">
+              <option disabled selected>your age</option>
+              @for (age of ageOptions; track $index) {
+                <option [ngValue]="age">{{age}}</option>
+              }
+              </select>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">email ( as account )</label>
+        <input type="email" id="email" placeholder="email"
+        [(ngModel)] = 'user.email'
+        [ngModelOptions]="{standalone: true}">
+      </div>
+
+      <div class="form-group">
+        <label for="password">password</label>
+        <input type="password" id="password" placeholder="your password"
+        [(ngModel)] = 'user.password'
+        [ngModelOptions]="{standalone: true}">
+      </div>
+
+      <button type="submit" class="btn-submit" (click)="createAccount()">create account</button>
+    </form>
+  </div>
+</section>

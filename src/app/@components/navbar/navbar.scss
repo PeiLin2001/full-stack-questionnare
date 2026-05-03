@@ -1,0 +1,88 @@
+$primary-purple: #857FD2;
+$light-purple: #a6a1f3;
+$bg-cream: #FEF8E0;
+$white: #FFFFFF;
+$bg-soft: #F4F3FB;
+$text-dark: #443D4F;
+$text-grey: #9A95A1;
+$text-yellow: #7C734E;
+
+.nav{
+  display: flex;
+  background-color: $primary-purple;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+
+  height: 5rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem 2rem;
+  align-items: center;
+}
+
+.nav-but{
+  display: flex;
+
+  width: 50%;
+  height: -webkit-fill-available;
+  justify-content: end;
+  gap: 0.5rem;
+}
+
+button{
+  width: 16%;
+
+  margin: 0;
+  padding: 0.5rem;
+
+  color: white;
+  border: transparent;
+  border-radius: 0.5rem;
+
+  font-weight: 600;
+  font-size: 1rem;
+
+    &:hover{
+      cursor: pointer;
+    }
+}
+
+#signin{
+  background-color: transparent;
+
+  &:hover{
+    background-color: #736fce;
+    cursor: pointer;
+  }
+}
+
+#create{
+  background-color: #9893D9;
+
+    &:hover{
+      background-color: #a6a1f3;
+      cursor: pointer;
+    }
+}
+
+.icon{
+  display: flex;
+    align-items: center;
+  width: 30%;
+    .logo{
+      font-size: 2rem;
+      font-weight: 800;
+      background-color: transparent;
+      margin: 0;
+    }
+}
+
+.welcome{
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+}
+

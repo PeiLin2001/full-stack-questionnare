@@ -1,0 +1,122 @@
+$primary-purple: #857FD2;
+$light-purple: #a6a1f3;
+$bg-cream: #FEF8E0;
+$white: #FFFFFF;
+$bg-soft: #F4F3FB;
+$text-dark: #443D4F;
+$text-grey: #9A95A1;
+$text-yellow: #7C734E;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $bg-soft;
+  color: $text-dark;
+  font-family: sans-serif; // 備用字體
+
+}
+
+.auth-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  position: relative;
+
+  padding: 6rem 0;
+}
+
+form{
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.intro h1{
+  font-size: clamp(1rem, 8vw, 3rem);
+  font-weight: 900;
+  color: $text-dark;
+  width: 60vw;
+  margin: 0;
+}
+
+.intro .intro-text{
+  font-size: clamp(0.5rem, 8vw, 1rem);
+  margin: 1rem 0 3rem 0;
+  letter-spacing: 10%;
+  color: $light-purple;
+}
+
+.input-field{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 1vh;
+}
+
+.input-title{
+  font-size: clamp(0.8rem, 8vw, 1.5rem);
+  font-weight: 600;
+  color: $text-dark;
+  margin-bottom: 1vh;
+}
+
+input{
+  width: 100%;
+  height: 10vh;
+  padding: 1rem;
+
+  border: $text-grey solid 1px;
+  border-radius: 8px;
+}
+
+button{
+  width: 100%;
+  height: 12vh;
+  padding: 1rem;
+  margin-top: 4vh;
+  align-items: center;
+
+  border: transparent;
+  border-radius: 8px;
+
+  color: white;
+  background-color: $primary-purple;
+
+  font-size: clamp(12px, 8vw, 24px);;
+  font-weight: 600;
+
+  &:hover{
+    background-color: $light-purple;
+    cursor: pointer;
+  }
+
+  &:disabled{
+    background-color: #c9c8e0;
+    cursor: no-drop;
+  }
+}
+
+.reminder-container{
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+.reminder{
+  font-size: 1rem;
+  color: rgb(245, 111, 111);
+  margin: 0;
+}
+
+
+
+

@@ -1,0 +1,51 @@
+<div class="canva">
+
+
+<div class="alert-bar">
+  <p>
+    ⚠  This portal is for authorised administrators only. Unauthorised access attempts are logged.
+  </p>
+</div>
+
+<section class="auth-wrapper">
+
+  <div class="intro-title">
+  <p>
+    Admin Access Only
+  </p>
+  </div>
+
+  <div class="intro">
+    <h1>Administrator Sign In</h1>
+    <p class="intro-text">Restricted — authorised personnel only</p>
+  </div>
+
+  <form (submit)="$event.preventDefault()">
+
+    <div class="input-field">
+      <label class="input-title">Admin ID</label>
+      <input type="text" placeholder="Your email" name="email" [(ngModel)]="account">
+      <p class="reminder">{{accErrMsg}}</p>
+    </div>
+
+    <div class="input-field">
+      <label class="input-title">Admin Password</label>
+      <input type="password" placeholder="Your password" name="password" [(ngModel)]="password">
+      <p class="reminder">{{pwdErrMsg}}</p>
+    </div>
+
+
+
+    @if (count >= 3) {
+      <button type="submit" (click)="logIn()" disabled>log in</button>
+    } @else {
+      <button type="submit" (click)="logIn()">log in</button>
+    }
+
+    <div class="reminder-container">
+      <p class="reminder">{{reminder}}</p>
+    </div>
+  </form>
+</section>
+
+</div>

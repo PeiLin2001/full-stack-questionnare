@@ -1,0 +1,108 @@
+<!-- @components/create-survey/create-survey.html -->
+<div class="create-container">
+  <header class="page-header">
+    <button class="back-btn" (click)="goBack()" type="button">
+      <span class="material-symbols-outlined">arrow_back</span>
+    </button>
+    <h1>{{ isEditMode ? 'Edit Survey' : 'Create New Survey' }}</h1>
+  </header>
+
+  <main class="form-content">
+    <!-- Basic Info Section -->
+    <section class="form-section">
+      <div class="section-title-group">
+        <span class="material-symbols-outlined">description</span>
+        <h2>Basic Information</h2>
+      </div>
+
+      <div class="input-group">
+        <label for="title">Survey Title <span class="required">*</span></label>
+        <input id="title" type="text" [(ngModel)]="surveyData.title" placeholder="e.g. Employee Satisfaction 2026">
+      </div>
+
+      <div class="input-group">
+        <label for="desc">Description</label>
+        <textarea id="desc" [(ngModel)]="surveyData.description" placeholder="Tell people what this survey is about..."></textarea>
+      </div>
+
+      <div class="date-row">
+        <div class="input-group">
+          <label for="start">Start Date <span class="required">*</span></label>
+          <input id="start" type="date" [(ngModel)]="surveyData.startDate">
+        </div>
+        <div class="input-group">
+          <label for="end">End Date <span class="required">*</span></label>
+          <input id="end" type="date" [(ngModel)]="surveyData.endDate">
+        </div>
+      </div>
+    </section>
+
+    <!-- Questions Section -->
+    <section class="form-section">
+      <div class="section-header">
+        <div class="section-title-group">
+          <span class="material-symbols-outlined">quiz</span>
+          <h2>Questions</h2>
+        </div>
+        <button class="add-q-btn" (click)="addQuestion()" type="button">
+          <span class="material-symbols-outlined">add_circle</span> Add Question
+        </button>
+      </div>
+
+      <div class="question-list">
+        @for (q of surveyData.questionList; track $index) {
+          <div class="question-card">
+            <div class="q-header">
+              <span class="q-number">Question {{ $index + 1 }}</span>
+              <button class="delete-btn" (click)="removeQuestion($index)" title="Remove question">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+
+            <div class="input-group">
+              <input type="text" [(ngModel)]="q.title" placeholder="What is your question?">
+            </div>
+
+            <div class="q-settings">
+              <div class="type-selector">
+                <span class="material-symbols-outlined">list</span>
+                <select [(ngModel)]="q.type">
+                  <option value="single">Single Choice</option>
+                  <option value="multi">Multiple Choice</option>
+                  <option value="text">Text Response</option>
+                </select>
+              </div>
+
+              <label class="checkbox-label">
+                <input type="checkbox" [(ngModel)]="q.required">
+                <span>Required</span>
+              </label>
+            </div>
+
+            <!-- 當不是文字題時，才顯示選項輸入框 -->
+            @if (q.type !== 'text') {
+              <div class="input-group options-input">
+                <label>Options (Separate by semicolon ';')</label>
+                <input type="text" [(ngModel)]="q.options" placeholder="Option 1; Option 2; Option 3">
+                <small>e.g. Highly Satisfied; Satisfied; Neutral; Dissatisfied</small>
+              </div>
+            }
+          </div>
+        } @empty {
+          <div class="empty-questions">
+            <span class="material-symbols-outlined">post_add</span>
+            <p>No questions added yet. Click "Add Question" to start.</p>
+          </div>
+        }
+      </div>
+    </section>
+
+    <footer class="form-actions">
+      <button class="cancel-btn" (click)="goBack()" type="button">Cancel</button>
+      <button class="save-btn" (click)="saveSurvey()" type="button">
+        <span class="material-symbols-outlined">save</span>
+        {{ isEditMode ? 'Update Survey' : 'Save & Create' }}
+      </button>
+    </footer>
+  </main>
+</div>

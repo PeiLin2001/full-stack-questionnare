@@ -1,0 +1,114 @@
+<!-- Admin Console Header -->
+<header class="admin-header">
+  <div class="header-content">
+    <h1>Survey Management</h1>
+    <button class="create-btn" (click)="goToCreatePage()">
+      <span class="material-symbols-outlined">add</span>
+      Create New Survey
+    </button>
+  </div>
+</header>
+
+<!-- Filter Bar -->
+<section class="filtbar">
+  <div class="filter-bar__search">
+    <span class="material-symbols-outlined" aria-hidden="true">search</span>
+    <input id="survey-search" type="text" placeholder="Search by title..." [(ngModel)]="searchText">
+  </div>
+
+  <fieldset class="filter-bar__item filter-bar__item--date">
+    <div class="date-input-group">
+      <label for="date-from">From:</label>
+      <input id="date-from" type="date" [(ngModel)]="fromDate">
+    </div>
+
+    <div class="date-input-group">
+      <label for="date-to">To:</label>
+      <input id="date-to" type="date" [(ngModel)]="toDate">
+    </div>
+
+    <span class="material-symbols-outlined reset" (click)="resetFilters()" title="Reset Filters">restart_alt</span>
+  </fieldset>
+</section>
+
+<!-- List Layout -->
+<section class="list-layout">
+  <div class="list-container">
+
+    <!-- 欄位標題 -->
+    <div class="list-header">
+      <span class="col-id">#</span>
+      <span class="col-title">Survey Title</span>
+      <span class="col-status">Status</span>
+      <span class="col-date">Start Date</span>
+      <span class="col-date">End Date</span>
+      <span class="col-actions">Actions</span>
+    </div>
+
+    @if (hasNoLength) {
+      <div class="no-results">
+        <div class="no-results__icon">
+          <span class="material-symbols-outlined">search_off</span>
+        </div>
+        <h2 class="no-results__title">No results found</h2>
+        <p class="no-results__sub">Try adjusting your keywords or date range.</p>
+        <div class="no-results__actions">
+          <button class="no-results__chip" (click)="resetFilters()">Clear all</button>
+        </div>
+      </div>
+    } @else {
+
+      <!-- Recent Surveys Section -->
+      @if(recentList.length > 0) {
+        <h2 class="section-divider">Recent Surveys</h2>
+        @for (item of recentList; track item.id) {
+          <div class="list-item">
+            <span class="col-id">{{item.id}}</span>
+            <span class="col-title"  (click)="goToEditPage(item)">{{item.title}}</span>
+            <span class="col-status">
+              <span class="status-badge" [class.published]="item.published">
+                {{ item.published ? 'Published' : 'Draft' }}
+              </span>
+            </span>
+            <span class="col-date">{{item.startDate}}</span>
+            <span class="col-date">{{item.endDate}}</span>
+            <div class="col-actions">
+              <button class="icon-btn" title="Statistics" (click)="goToStats(item.id)">
+                <span class="material-symbols-outlined">bar_chart</span>
+              </button>
+              <button class="icon-btn delete" title="Delete" (click)="deleteQuiz(item.id)">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+          </div>
+        }
+      }
+
+      <!-- Past Surveys Section (這裡補齊了) -->
+      @if(pastList.length > 0) {
+        <h2 class="section-divider">Past Surveys</h2>
+        @for (item of pastList; track item.id) {
+          <div class="list-item">
+            <span class="col-id">{{item.id}}</span>
+            <span class="col-title"  (click)="goToEditPage(item)">{{item.title}}</span>
+            <span class="col-status">
+              <span class="status-badge" [class.published]="item.published">
+                {{ item.published ? 'Published' : 'Draft' }}
+              </span>
+            </span>
+            <span class="col-date">{{item.startDate}}</span>
+            <span class="col-date">{{item.endDate}}</span>
+            <div class="col-actions">
+              <button class="icon-btn" title="Statistics" (click)="goToStats(item.id)">
+                <span class="material-symbols-outlined">bar_chart</span>
+              </button>
+              <button class="icon-btn delete" title="Delete" (click)="deleteQuiz(item.id)">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </div>
+          </div>
+        }
+      }
+    }
+  </div>
+</section>

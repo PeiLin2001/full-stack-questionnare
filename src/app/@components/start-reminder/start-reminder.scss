@@ -1,0 +1,81 @@
+$primary-purple: #857FD2;
+$light-purple: #a6a1f3;
+$bg-cream: #FEF8E0;
+$white: #FFFFFF;
+$bg-soft: #F4F3FB;
+$text-dark: #443D4F;
+$text-grey: #9A95A1;
+
+.content{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+
+  margin-top: 15vh;
+  margin-bottom: 10vh;
+  padding: 3rem 0;
+
+  align-items: center;
+  text-align: center;
+}
+
+
+.remind >* {
+  margin: 5vh;
+}
+
+
+h1{
+  font-size: clamp(12px, 8vw, 32px);
+  font-weight: 900;
+  margin: 0;
+  color: $text-dark;
+  width: 60vw;
+}
+
+p{
+  font-size: clamp(12px, 8vw, 24px);
+  font-weight: 300;
+  margin: 0;
+  color: $text-grey;
+  width: 60vw;
+}
+
+
+.cta{
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.cta >* {
+  padding: 12px 24px;
+  border: transparent;
+  border-radius: 8px;
+  font-size: clamp(12px, 8vw, 32px);
+  font-weight: 700;
+  margin: 3vh 0;
+}
+
+.cta >*:hover{
+  cursor: pointer;
+}
+
+.cta .cta-signin{
+  color: white;
+  background-color: $primary-purple;
+}
+
+.cta .cta-signin:hover{
+  background-color: $light-purple;
+}
+
+.cta .cta-createaccount{
+  color: $text-dark;
+  background-color: transparent;
+  border: $text-dark solid 1px;
+}
+
+
+

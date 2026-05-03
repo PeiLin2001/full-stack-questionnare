@@ -1,0 +1,181 @@
+$primary-purple: #857FD2;
+$light-purple: #a6a1f3;
+$bg-cream: #FEF8E0;
+$white: #FFFFFF;
+$bg-soft: #F4F3FB;
+$text-dark: #443D4F;
+$text-grey: #9A95A1;
+$text-yellow: #7C734E;
+$error-red: #E57373;
+
+.quiz-page-container {
+  min-height: 100vh;
+  background-color: $bg-cream;
+  padding-bottom: 60px;
+  padding-top: 5rem; // 剛好等於 Navbar 的高度
+  box-sizing: border-box; // 確保 padding 不會撐大容器寬度
+
+  // font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  color: $text-dark;
+
+
+  .content-wrapper {
+    max-width: 740px;
+    margin: 24px auto;
+    padding: 0 16px;
+  }
+
+  // 卡片基礎樣式
+  .quiz-card {
+    background: $white;
+    border: 1px solid rgba($primary-purple, 0.1);
+    border-radius: 16px; // 圓角稍微大一點，看起來更柔和
+    padding: 32px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba($text-dark, 0.05);
+    transition: transform 0.2s ease;
+
+    &.header-card {
+      border-top: 8px solid $primary-purple;
+
+      .quiz-title {
+        font-size: 28px;
+        color: $primary-purple;
+        margin: 0 0 12px 0;
+        font-weight: 600;
+      }
+
+      .quiz-description {
+        font-size: 15px;
+        color: $text-yellow; // 描述文字使用黃褐色系
+        line-height: 1.6;
+      }
+
+      .required-notice {
+        color: $error-red;
+        font-size: 13px;
+        margin-top: 16px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  // 題目卡片細節
+  .question-card {
+    &:hover {
+      border-color: rgba($primary-purple, 0.3);
+    }
+
+    .question-text {
+      font-size: 17px;
+      font-weight: 500;
+      color: $text-dark;
+      margin-bottom: 20px;
+      line-height: 1.4;
+
+      .required-star {
+        color: $error-red;
+        margin-left: 4px;
+      }
+    }
+
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .option-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        background-color: $bg-soft; // 選項背景使用軟紫色調
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: rgba($light-purple, 0.2);
+        }
+
+        input {
+          margin-right: 14px;
+          width: 18px;
+          height: 18px;
+          cursor: pointer;
+          accent-color: $primary-purple; // 讓選取框變成你的主紫色
+        }
+
+        .option-label {
+          font-size: 15px;
+          color: $text-dark;
+        }
+      }
+
+      // 簡答題輸入框
+      .standard-input {
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid $bg-soft;
+        padding: 10px 4px;
+        font-size: 15px;
+        color: $text-dark;
+        outline: none;
+        transition: border-color 0.3s;
+
+        &::placeholder {
+          color: $text-grey;
+        }
+
+        &:focus {
+          border-bottom-color: $primary-purple;
+        }
+      }
+    }
+  }
+
+  // 按鈕區塊
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 32px;
+
+    .submit-btn {
+      background-color: $primary-purple;
+      color: $white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba($primary-purple, 0.3);
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: darken($primary-purple, 5%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba($primary-purple, 0.4);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .reset-btn {
+      background: none;
+      border: none;
+      color: $text-grey;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+
+      &:hover {
+        color: $text-dark;
+      }
+    }
+  }
+}

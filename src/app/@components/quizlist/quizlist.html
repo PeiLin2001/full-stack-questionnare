@@ -1,0 +1,106 @@
+
+<!-- filter bar -->
+<section class="filtbar" aria-label="quiz-filter">
+  <!-- filter bar . search -->
+  <div class="filter-bar__search">
+    <label for="survey-search" class="sr-only">搜尋問卷名稱</label>
+    <span class="material-symbols-outlined"  aria-hidden>search</span>
+    <input id="survey-search"
+            type="text"
+            placeholder="Search"
+            [(ngModel)]="searchText">
+  </div>
+
+  <!-- Date choose field -->
+   <fieldset class = "filter-bar__item filter-bar__item--date">
+    <legend class = "sr-only">選擇日期範圍</legend>
+    <!-- from -->
+      <div class = "date-input-group">
+        <label for = "date-from">From:</label>
+        <input id = "date-from" type = "date" [(ngModel)] = "fromDate">
+      </div>
+
+    <!-- to -->
+      <div class = "date-input-group">
+        <label for = "date-to">To:</label>
+        <input id = "date-to" type = "date" [(ngModel)]="toDate">
+      </div>
+
+    <!-- reset -->
+      <span class="material-symbols-outlined reset" (click)="resetFilters()" title="reset">restart_alt</span>
+   </fieldset>
+   <!-- <button (click)="resetFilters()" class="reset">reset</button> -->
+</section>
+
+<section class="list-layout" aria-label="quiz-list">
+
+  <div class="list-container">
+
+    @if (hasNoLength)
+    {
+      <div class="no-results">
+          <div class="no-results__icon">
+            <span class="material-symbols-outlined">search</span>
+          </div>
+            <h2 class="no-results__title">No results found.</h2>
+            <p class="no-results__sub">No matching results found.<br>Try adjusting your keywords or date range.</p>
+          <div class="no-results__actions">
+            <button class="no-results__chip" (click)="resetFilters()">Clear filters</button>
+            <button class="no-results__chip" (click)="setDateRange(7)">Last 7 days</button>
+            <button class="no-results__chip" (click)="setDateRange(30)">Last 30 days</button>
+          </div>
+      </div>
+    }
+    @else
+    {
+      @if(recentList.length > 0)
+      {
+
+        <h2 class="section-title">Recent</h2>
+        @for (item of recentList; track $index) {
+          <!-- @if (calDate(item.startDate)) { -->
+          <div class="list-item" (click)="goToQuiz(item)">
+            <span class="list-item-id">{{item.id}}</span>
+            <span class="list-item-title">{{item.title}}</span>
+            <span class="list-item-date">{{item.startDate}}</span>
+            <span class="list-item-date">{{item.endDate}}</span>
+
+            @if (isAvaliable(item.startDate, item.endDate)) {
+              <button class="list-btn list-btn--avaliable">start</button>
+            }@else {
+              <button class="list-btn list-btn--disabled" disabled>unavaliable</button>
+            }
+          </div>
+          <!-- }the end of calDate true -->
+        } <!-- the end of for loop -->
+      } <!-- the end of rescent list -->
+
+      @if(pastList.length > 0)
+      {
+        <h2 class="section-title">Past</h2>
+        @for (item of pastList; track $index) {
+          <!-- @if (!calDate(item.startDate)) { -->
+          <div class="list-item" (click)="goToQuiz(item)">
+            <span class="list-item-id">{{item.id}}</span>
+            <span class="list-item-title">{{item.title}}</span>
+            <span class="list-item-date">{{item.startDate}}</span>
+            <span class="list-item-date">{{item.endDate}}</span>
+
+            @if (isAvaliable(item.startDate, item.endDate)) {
+              <button class="list-btn list-btn--avaliable">start</button>
+            }@else {
+              <button class="list-btn list-btn--disabled" disabled>unavaliable</button>
+            }
+          </div>
+          <!-- }the end of calDate false -->
+        } <!-- the end of for loop -->
+      } <!-- the end of @if(pastList.length > 0) -->
+
+
+
+    }  <!-- the end of has no length -->
+
+  </div> <!-- the end of list container -->
+</section>
+
+

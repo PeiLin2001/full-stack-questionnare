@@ -1,0 +1,66 @@
+<div class="quiz-page-container">
+
+
+  <div class="content-wrapper">
+    <!-- 問卷標題卡片 -->
+    <header class="quiz-card header-card">
+      <h1 class="quiz-title">{{ title }}</h1>
+      <p class="quiz-description">{{description}}</p>
+      <div class="required-notice">* required</div>
+    </header>
+
+    <!-- 題目列表 -->
+    <form (submit)="$event.preventDefault()">
+      @for (q of backEndQuestionsRes; track q.questionId) {
+        <div class="quiz-card question-card">
+          <div class="question-text">
+            {{ q.question_name}}
+            @if (q.required) { <span class="required-star">*</span> }
+          </div>
+
+          <div class="options-container">
+            <!-- 根據題目類型顯示不同輸入介面 -->
+            @if (q.type === '單選') {
+              <!-- 單選題示例 (Radio) -->
+              @for (opt of q.optionsList; track $index) {
+                <label class="option-item">
+                  <input type="radio"
+                  [name]="'q'+ q.questionId"
+                  [value]="opt"
+                  [(ngModel)]="q.userAnswer[0]">
+                  <span class="option-label">{{ opt }}</span>
+                </label>
+              }
+            }
+            @else if (q.type === '多選') {
+              <!-- 多選題示例 (Checkbox) -->
+              @for (opt of q.optionsList; track $index) {
+                <label class="option-item">
+                  <input type="checkbox"
+                  [name]="'text' + q.questionId"
+                  (change)="onCheckboxChange(q, opt, $event)"
+                  [checked]="q.userAnswer.includes(opt)">
+                  <span class="option-label">{{ opt }}</span>
+                </label>
+              }
+            }
+            @else {
+              <!-- 問答題示例 (Text) -->
+              <div class="text-input-wrapper">
+                <input type="text" class="standard-input" placeholder="your answer..."
+                [name]="'text' + q.questionId"
+                [(ngModel)]="q.userAnswer[0]">
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- 送出按鈕 -->
+      <div class="actions">
+        <button type="submit" class="submit-btn" (click)="onSubmit()">Submit</button>
+        <button type="button" class="reset-btn" (click)="fetchQuestions()">clear</button>
+      </div>
+    </form>
+  </div>
+</div>

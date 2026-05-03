@@ -1,0 +1,358 @@
+$primary-purple: #857FD2;
+$light-purple: #a6a1f3;
+$bg-cream: #FEF8E0;
+$white: #FFFFFF;
+$bg-soft: #F4F3FB;
+$text-dark: #443D4F;
+$text-grey: #9A95A1;
+$text-yellow: #7C734E;
+
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $bg-soft;
+  color: $text-dark;
+  font-family: sans-serif; // 備用字體
+}
+
+// :host {
+//   display: block; // 必須加上這個，背景顏色才會填滿整個區塊
+//   background-color: $text-dark; // 這裡設定你想要的顏色
+//   min-height: 100vh; // 如果想讓背景填滿整個螢幕高度
+// }
+
+// 設定filter bar(外殼)的樣式
+.filtbar{
+  display: flex;
+  position: fixed;
+  justify-content: center;
+
+
+  top: 5.05rem;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  width: 100%;
+  padding: 0 2rem;
+
+
+  box-shadow: 0px 1px 5px rgba($text-grey, 0.5);
+  box-sizing: border-box;
+
+
+  // 設定搜尋欄位的位置
+  .filter-bar__search {
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 45%;
+
+    #survey-search{
+      width: 100%;
+    }
+
+    // 設定放大鏡icon的樣式
+    .material-symbols-outlined {
+      position: absolute;
+      left: 8px;
+      color: $text-grey;
+      pointer-events: none; /* 讓點擊穿透到 input */
+    }
+
+
+    // 設定搜尋欄位的樣式
+    input {
+      height: 32px;
+      padding-left: 35px;
+
+      background-color: $bg-soft;
+      border: transparent;
+      border-radius: 10px;
+
+      color: white;
+
+      &:focus {
+        outline: 1px solid $primary-purple;
+      }
+    }
+  } // The end of filter-bar__search
+
+  //調整date filter的整體排版和色彩
+  .filter-bar__item--date{
+    display: flex;
+    color: $text-grey;
+    font-size: clamp(5px, 8vw, 12px);
+    border: transparent;
+
+      // 調整input date樣式
+      input[type="date"] {
+        // 清除預設樣式
+        appearance: none;
+        border: none;
+        border-bottom: none;
+        padding: 6px 14px;
+
+        // 新增自訂樣式
+        background: $bg-soft;
+        color: $text-grey;
+        border-radius: 1000px;
+        margin: 0.5rem;
+      }
+
+      input[type="date"]:hover{
+        cursor: pointer;
+      }
+  } // The end of filter-bar__item--date
+
+  .reset{
+    height: fit-content;
+    font-family: 'Material Symbols Outlined' !important;
+
+    // background-color: $primary-purple;
+    border-radius: 999px;
+    border: transparent;
+
+    align-self: center;
+
+    padding: 0.2rem;
+    color: rgba(white, 0.5);
+
+      &:hover{
+        color: white;
+        background-color: rgba($text-grey, 0.3);
+        cursor: pointer;
+      }
+  }
+} // The end of filterbar
+
+
+
+// .list-layout{
+//   display: flex;
+//   flex-direction: column;
+//   width: 80vw;
+
+//   margin: 0 auto;
+//   padding-top: 11rem;
+
+//   align-items: center;
+
+//     .section-title{
+//       align-self: start;
+//       padding: 0 1rem;
+//       color: $primary-purple;
+//       font-size: 1rem;
+//       font-weight: 400;
+//     }
+
+//     .list-container{
+//       display: flex;
+//       flex-direction: column;
+//       width: 100%;
+
+
+//       .list-item{
+//         display: grid;
+//         grid-template-columns: 1fr 4fr 1.5fr 1.5fr;
+//         gap: 0.5rem;
+//         // background-color: white;
+//         height: 20vh;
+//         align-items: center;
+//         text-align: center;
+//         padding: 1rem;
+//         border-radius: 0.5rem;
+
+
+//         &:hover{
+//           background-color: rgb(250, 250, 253);
+//         }
+
+//         .list-item-id{
+//           color: $text-grey;
+//         }
+
+//         .list-item-title{
+//           color: white;
+//           text-align: start;
+//           font-size: 1rem;
+//           font-weight: 500;
+//         }
+
+//         .list-item-date{
+//           color: $text-grey;
+//         }
+
+//         .list-btn{
+//           border-radius: 999px;
+//           width: 45%;
+//           height: 50%;
+//           justify-self: center;
+
+//           padding: 0.1rem;
+
+//           letter-spacing: 5%;
+//           font-weight: 600;
+//         }
+
+//         .list-btn--avaliable{
+//           background-color: $primary-purple;
+//           color: white;
+//           border: transparent;
+
+//             &:hover{
+//               background-color: $light-purple;
+//               cursor: pointer;
+//             }
+//         }
+
+//         .list-btn--disabled{
+//           background-color:rgba(#9a9bd4, 0.5);
+//           color: rgba(#FFFFFF, 0.7);
+//           // border: rgb(212, 212, 212) 2px solid;
+//           border: transparent;
+
+//             &:hover{
+//               cursor: no-drop;
+//             }
+//         }
+//       }
+
+//       .no-results {
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         padding: 52px 24px;
+//         gap: 0;
+
+//           .no-results__icon {
+//             width: 9rem;
+//             height: 9rem;
+//             border-radius: 50%;
+//             border: 1.5px dashed #C8C0A0;
+//             display: flex;
+//             align-items: center;
+//             justify-content: center;
+//             margin-bottom: 20px;
+//             color: #C8C0A0;
+
+//               .material-symbols-outlined {
+//                 font-size: 3.5rem;
+//               }
+//           }
+
+//           .no-results__title {
+//             font-size: 24px;
+//             font-weight: 800;
+//             color: #5A5040;
+//             margin: 0 0 8px;
+//           }
+
+//           .no-results__sub {
+//             font-size: 14px;
+//             color: #8A8070;
+//             text-align: center;
+//             line-height: 1.7;
+//             margin: 0 0 24px;
+//           }
+
+//           .no-results__actions {
+//             display: flex;
+//             gap: 8px;
+
+//               .no-results__chip {
+//                 padding: 8px 20px;
+//                 border-radius: 99px;
+//                 border: 1.5px solid #C0B898;
+//                 background: transparent;
+//                 font-size: 13px;
+//                 font-weight: 600;
+//                 color: #6A6050;
+//                 cursor: pointer;
+//                 transition: all 0.15s;
+
+//                   &:hover {
+//                     background: $primary-purple;
+//                     border-color: transparent;
+//                     color: #fff;
+//                   }
+//               }
+//           }
+//       }
+
+
+
+
+//     }
+// }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.admin-header{
+  margin-top: 10rem;
+}
+.list-header, .list-item {
+  display: grid;
+  // 定義欄位寬度：ID(50px), 標題(1fr), 狀態(100px), 日期*2(120px), 操作(100px)
+  grid-template-columns: 50px 1fr 100px 120px 120px 100px;
+  gap: 15px;
+  align-items: center;
+  padding: 12px 20px;
+  margin-top: 1.5rem;
+}
+
+.list-header {
+  font-weight: bold;
+  background: #f8f9fa;
+  border-bottom: 2px solid #eee;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  background: #eee; // 預設草稿顏色
+
+  &.published {
+    background: #e6f4ea;
+    color: #1e8e3e; // 綠色代表已發布
+  }
+}
+
+.col-title{
+  font-weight: 700;
+  color: $primary-purple;
+
+    &:hover{
+      cursor: pointer;
+      color: $light-purple;
+    }
+}
+
+.col-actions {
+  display: flex;
+  gap: 8px;
+
+  .icon-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #857FD2;
+    &:hover { color: #555; }
+    &.delete:hover { color: #d93025; }
+  }
+}

@@ -1,0 +1,17 @@
+<nav class="nav">
+
+    <div class="icon">
+    <button class="logo" (click)="goToHomePage()">DynamiQ!</button>
+    </div>
+
+    @if (isLogIn() === true) {
+      <p class="welcome">Welcome, {{name}}!</p>
+    }@else {
+      <div class="nav-but">
+        <button id="signin" (click)="goToSigninPage()">Log in</button>
+        <button id="create" (click)="goToRegister()">register</button>
+      </div>
+    }
+
+
+  </nav>
