@@ -56,7 +56,6 @@ export class AdminLogin {  // Declare
     if(this.account === 'admin' && this.password === '1234')
     {
       this.router.navigate(['/adminconsole'])
-      alert("Successful!");
     }
     else
     {

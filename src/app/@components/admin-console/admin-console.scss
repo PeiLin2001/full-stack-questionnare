@@ -18,18 +18,12 @@ body {
   font-family: sans-serif; // 備用字體
 }
 
-// :host {
-//   display: block; // 必須加上這個，背景顏色才會填滿整個區塊
-//   background-color: $text-dark; // 這裡設定你想要的顏色
-//   min-height: 100vh; // 如果想讓背景填滿整個螢幕高度
-// }
-
 // 設定filter bar(外殼)的樣式
 .filtbar{
   display: flex;
   position: fixed;
   justify-content: center;
-
+  background-color: $white;
 
   top: 5.05rem;
   left: 0;
@@ -129,166 +123,6 @@ body {
   }
 } // The end of filterbar
 
-
-
-// .list-layout{
-//   display: flex;
-//   flex-direction: column;
-//   width: 80vw;
-
-//   margin: 0 auto;
-//   padding-top: 11rem;
-
-//   align-items: center;
-
-//     .section-title{
-//       align-self: start;
-//       padding: 0 1rem;
-//       color: $primary-purple;
-//       font-size: 1rem;
-//       font-weight: 400;
-//     }
-
-//     .list-container{
-//       display: flex;
-//       flex-direction: column;
-//       width: 100%;
-
-
-//       .list-item{
-//         display: grid;
-//         grid-template-columns: 1fr 4fr 1.5fr 1.5fr;
-//         gap: 0.5rem;
-//         // background-color: white;
-//         height: 20vh;
-//         align-items: center;
-//         text-align: center;
-//         padding: 1rem;
-//         border-radius: 0.5rem;
-
-
-//         &:hover{
-//           background-color: rgb(250, 250, 253);
-//         }
-
-//         .list-item-id{
-//           color: $text-grey;
-//         }
-
-//         .list-item-title{
-//           color: white;
-//           text-align: start;
-//           font-size: 1rem;
-//           font-weight: 500;
-//         }
-
-//         .list-item-date{
-//           color: $text-grey;
-//         }
-
-//         .list-btn{
-//           border-radius: 999px;
-//           width: 45%;
-//           height: 50%;
-//           justify-self: center;
-
-//           padding: 0.1rem;
-
-//           letter-spacing: 5%;
-//           font-weight: 600;
-//         }
-
-//         .list-btn--avaliable{
-//           background-color: $primary-purple;
-//           color: white;
-//           border: transparent;
-
-//             &:hover{
-//               background-color: $light-purple;
-//               cursor: pointer;
-//             }
-//         }
-
-//         .list-btn--disabled{
-//           background-color:rgba(#9a9bd4, 0.5);
-//           color: rgba(#FFFFFF, 0.7);
-//           // border: rgb(212, 212, 212) 2px solid;
-//           border: transparent;
-
-//             &:hover{
-//               cursor: no-drop;
-//             }
-//         }
-//       }
-
-//       .no-results {
-//         display: flex;
-//         flex-direction: column;
-//         align-items: center;
-//         padding: 52px 24px;
-//         gap: 0;
-
-//           .no-results__icon {
-//             width: 9rem;
-//             height: 9rem;
-//             border-radius: 50%;
-//             border: 1.5px dashed #C8C0A0;
-//             display: flex;
-//             align-items: center;
-//             justify-content: center;
-//             margin-bottom: 20px;
-//             color: #C8C0A0;
-
-//               .material-symbols-outlined {
-//                 font-size: 3.5rem;
-//               }
-//           }
-
-//           .no-results__title {
-//             font-size: 24px;
-//             font-weight: 800;
-//             color: #5A5040;
-//             margin: 0 0 8px;
-//           }
-
-//           .no-results__sub {
-//             font-size: 14px;
-//             color: #8A8070;
-//             text-align: center;
-//             line-height: 1.7;
-//             margin: 0 0 24px;
-//           }
-
-//           .no-results__actions {
-//             display: flex;
-//             gap: 8px;
-
-//               .no-results__chip {
-//                 padding: 8px 20px;
-//                 border-radius: 99px;
-//                 border: 1.5px solid #C0B898;
-//                 background: transparent;
-//                 font-size: 13px;
-//                 font-weight: 600;
-//                 color: #6A6050;
-//                 cursor: pointer;
-//                 transition: all 0.15s;
-
-//                   &:hover {
-//                     background: $primary-purple;
-//                     border-color: transparent;
-//                     color: #fff;
-//                   }
-//               }
-//           }
-//       }
-
-
-
-
-//     }
-// }
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -302,6 +136,37 @@ body {
 
 .admin-header{
   margin-top: 10rem;
+
+  max-width: 1200px;
+  padding: 0 2rem;
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .create-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background-color: $primary-purple;
+      color: $white;
+      border: transparent;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $light-purple;
+      }
+    }
+  }
 }
 .list-header, .list-item {
   display: grid;
