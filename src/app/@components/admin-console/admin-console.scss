@@ -18,6 +18,11 @@ body {
   font-family: sans-serif; // 備用字體
 }
 
+.content{
+  background-color: $text-dark;
+  min-height: 100vh;
+}
+
 // 設定filter bar(外殼)的樣式
 .filtbar{
   display: flex;
@@ -113,10 +118,9 @@ body {
     align-self: center;
 
     padding: 0.2rem;
-    color: rgba(white, 0.5);
+    color: rgba($text-dark, 0.5);
 
       &:hover{
-        color: white;
         background-color: rgba($text-grey, 0.3);
         cursor: pointer;
       }
@@ -135,20 +139,17 @@ body {
 }
 
 .admin-header{
-  margin-top: 10rem;
 
-  max-width: 1200px;
-  padding: 0 2rem;
+  max-width: 90vw;
+  margin: auto;
+
+  padding-top: 9.5rem;
+  padding-bottom: 1rem;
 
   .header-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
-
-    h1 {
-      margin: 0;
-      font-size: 1.8rem;
-    }
 
     .create-btn {
       display: flex;
@@ -174,8 +175,8 @@ body {
   grid-template-columns: 50px 1fr 100px 120px 120px 100px;
   gap: 15px;
   align-items: center;
-  padding: 12px 20px;
-  margin-top: 1.5rem;
+  padding: 1rem 2rem;
+  background-color: $bg-soft;
 }
 
 .list-header {
@@ -220,4 +221,9 @@ body {
     &:hover { color: #555; }
     &.delete:hover { color: #d93025; }
   }
+}
+
+.list-layout {
+  max-width: 90vw;
+  margin: auto;
 }

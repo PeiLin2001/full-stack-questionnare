@@ -115,18 +115,18 @@ export class AdminConsole {
 
   // Direct to the selected quiz page
   goToEditPage(quiz:Quiz){
-      this.router.navigate(['/edit', quiz.id]);
+      this.router.navigate(['/admin/edit', quiz.id]);
   }
 
 
   // 1. 導向新增頁面
   goToCreatePage() {
-    this.router.navigate(['/admin/create']); // 假設這是你的路徑
+    this.router.navigate(['/admin/create']);
   }
 
   // 2. 導向統計圖表頁面
   goToStats(quizId: number) {
-    this.router.navigate(['/admin/statistics', quizId]); // 假設這是你的路徑
+    this.router.navigate(['/admin/statistics', quizId]);
   }
 
   // 3. 刪除問卷功能
