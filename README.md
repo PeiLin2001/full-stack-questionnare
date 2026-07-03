@@ -1,8 +1,221 @@
+# DynamiQ – Dynamic Survey Frontend
+
+This is my first fullstack project, built during a vocational training program.
+
+DynamiQ is a fullstack survey (questionnaire) project, built with Angular and Spring boot.This project could be split into a user-facing side and an admin side. After logging in, users can browse a list of surveys, filter them by keyword/date, and fill out any survey that is currently open. Admins can log in to a separate console to manage surveys. Survey questions are provided by a backend API, and the frontend renders the appropriate input type based on each question's type.
+
+The frontend is written in Angular, the backend in Java Spring Boot, and the full UI/UX and visual design system was designed in Figma.
+
+## Table of Contents
+
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Pages & Features](#pages--features)
+- [Routing](#routing)
+- [API Services](#api-services)
+- [API Endpoints](#api-endpoints)
+- [Login State](#login-state)
+- [Survey Answer Data Handling](#survey-answer-data-handling)
+- [Global Styles](#global-styles)
+- [Related Projects](#related-projects)
+- [TODO](#todo)
+
+## Tech Stack
+
+- Frontend: Angular (Standalone Components)
+- Routing: Angular Router (with route guards via `CanActivateFn`)
+- HTTP: Angular HttpClient
+- Form binding: FormsModule / ngModel
+- Icons & fonts: Google Fonts, Material Symbols / Material Icons
+- Backend API currently points to: `http://localhost:8080`
+
+## Getting Started
+
+```bash
+# install dependencies
+npm install
+
+# start the dev server
+ng serve
+```
+
+Once running, open `http://localhost:4200`.
+
+> Note: all API calls currently point to `http://localhost:8080`. You'll need to run the backend (Spring Boot) separately for login, data fetching, and survey submission to work.
+
+## Pages & Features
+
+### Home
+Displays the DynamiQ welcome text and a Start button. Clicking Start routes the user based on login state:
+- Logged in: goes to the survey list page
+- Not logged in: goes to the "start reminder" page
+
+The home page also has a hidden keyboard-triggered shortcut that navigates to the admin login page (for internal testing only).
+
+### Navbar
+Shows different content depending on login state:
+- Logged in: shows a welcome message with the user's name
+- Not logged in: shows "Log in" and "Register" buttons
+
+Login state is determined by whether `userToken` exists in `sessionStorage`.
+
+### Start Reminder
+Reminds a not-logged-in user that they need to log in before answering any survey, with "Sign in" and "Create account" call-to-action buttons.
+
+### Register
+Collects name, age (dropdown, 1–130), email (used as the account), and password. On submit, calls the register API — on success, navigates to the survey list page; on failure, shows an error message based on the HTTP status code (connection failure / 404 / 500 / other).
+
+### Sign In
+Regular user login page. On submit with email and password:
+- On success, stores the token in `sessionStorage`, then calls the "get user info" API to also store the user's name and email in `sessionStorage`
+- If fetching user info fails, falls back to using the local part of the email as the display name
+- After 3 failed attempts, the login button is disabled and an error-count message is shown
+
+### Admin Login
+A login page reserved for administrators, with a clear authorization warning banner. Logic is similar to the regular login page (credential check, error-count lockout); on success, navigates to the admin console.
+
+### Quiz List (User-facing)
+Fetches the list of public surveys from the backend and displays them. Current features:
+- Keyword search by survey title
+- Filter by date range
+- Quick filters for "last 7 days" / "last 30 days"
+- Reset filters
+- Splits surveys into "Recent" and "Past" sections based on start date
+- Checks whether a survey is currently open (`isAvaliable`) — only open surveys are clickable
+- Shows a "No results" empty state when nothing matches the filters
+
+### Quiz Page (Answer a Survey)
+Based on the survey id in the URL, fetches from the backend:
+- Basic survey info (title, description)
+- The list of questions
+
+Each question renders a different input based on its type:
+
+| Question Type | Rendered As |
+| --- | --- |
+| Single choice | radio button |
+| Multiple choice | checkbox |
+| Other | text input |
+
+On submit, answers are assembled into this shape and sent to the backend:
+
+```ts
+{
+  quizId: number,
+  email: string,
+  answersVoList: [
+    {
+      questionId: number,
+      answerList: string[]
+    }
+  ]
+}
+```
+
+If the survey is not currently open, or is invalid, the user sees an alert and is redirected back to the survey list.
+
+### Admin Console
+Once logged in, admins can see all surveys (including unpublished drafts), with:
+- Keyword search, date range filter, and reset (same logic as the user-facing list)
+- "Recent" / "Past" grouping by start date
+- Publish status badge per survey (Published / Draft)
+- Click the title to go to the edit page
+- Icons to view statistics or delete a survey (delete asks for confirmation first)
+- A "Create New Survey" button
+
+## Routing
+
+| Path | Page | Notes |
+| --- | --- | --- |
+| `/` | Home | |
+| `/home` | Home | |
+| `/start-reminder` | Start Reminder | |
+| `/register` | Register | |
+| `/sign-in` | Sign In | |
+| `/quizlist` | Quiz List | Route guard |
+| `/quiz-page/:id` | Quiz Page | Route guard |
+| `/admin/login` | Admin Login | |
+| `/adminconsole` | Admin Console | |
+| `/admin/create` | Create Survey | |
+| `/admin/edit/:id` | Edit Survey | |
+
+`/quizlist` and `/quiz-page/:id` are protected by the `quizStatusGuard` route guard — if the user isn't logged in, they're prompted to log in and redirected back to the home page.
+
+## API Services
+
+| Service | Description |
+| --- | --- |
+| `UserHttp` | Login, register, check login state, get user info, read the user's name / email from sessionStorage |
+| `QuizHttp` | Get (public) survey list, get question list by id, get survey info by id |
+| `FillinHttp` | Submit survey answers |
+| `AdminQuizHttp` | Get (admin) survey list, get question list, get survey info, create, update, and delete a survey |
+| `AdminFillinHttp` | Submit answers, get feedback data, get statistics data |
+
+This README only documents the API calls currently wrapped in these services; it doesn't cover admin page behaviors beyond what's shown here.
+
+## API Endpoints
+
+### User API
+| Method | Path | Purpose |
+| --- | --- | --- |
+| GET | `/user/login` | User login |
+| POST | `/user/register` | User registration |
+| GET | `/user/getInfo` | Get user info |
+
+### Quiz API
+| Method | Path | Purpose |
+| --- | --- | --- |
+| GET | `/quiz/get_quiz_list` | Get survey list |
+| GET | `/quiz/get_question_list` | Get question list |
+| GET | `/quiz/get_quiz_information` | Get survey info |
+| POST | `/quiz/fillin` | Submit survey answers |
+| POST | `/quiz/create` | Create a survey |
+| POST | `/quiz/update` | Update a survey |
+| GET | `/quiz/delete` | Delete a survey |
+| POST | `/quiz/feedback` | Get feedback data |
+| POST | `/quiz/statistics` | Get statistics data |
+
+## Login State
+
+The frontend stores login-related data in `sessionStorage`, and determines login state by whether `userToken` exists. Keys currently used:
+
+- `userToken`
+- `userName`
+- `userEmail`
+
+## Survey Answer Data Handling
+
+After fetching questions, the frontend adds a `userAnswer` field to each question:
+
+- Single choice: stored in `userAnswer[0]`
+- Multiple choice: stored as an array in `userAnswer`
+- Text answer: stored in `userAnswer[0]`
+
+On submit, this is converted into the `answersVoList` format expected by the backend.
+
+## Global Styles
+
+Current global styles include:
+
+- Zeroed-out page margins
+- Site-wide background color `#FFFEEC`
+- Site-wide font settings
+- `html, body` height set to 100%
+
+## Related Projects
+
+Backend repo: [link TBD]
+
+## TODO
+
+- [ ] Survey results / statistics page
+- [ ] Admin-side "create survey" functionality
+
 # DynamiQ 動態問卷前端專案
 
 這是我在職訓期間完成的第一份 fullstack 專案。
 
-DynamiQ 是一個以 Angular 建立的問卷前端專案，分為使用者端和管理者端。使用者登入後可以查看問卷列表、依條件篩選問卷、進入開放期間內的問卷並進行填答；管理者則可以登入後台管理問卷。問卷題目由後端 API 提供，前端會依照題型顯示對應的輸入介面。
+DynamiQ 是一個以 Angular 與 Spring boot 建立的問卷全端專案，分為使用者端和管理者端。使用者登入後可以查看問卷列表、依條件篩選問卷、進入開放期間內的問卷並進行填答；管理者則可以登入後台管理問卷。問卷題目由後端 API 提供，前端會依照題型顯示對應的輸入介面。
 
 前端使用 Angular 撰寫，後端使用 Java Spring Boot，並以 Figma 進行完整的 UI/UX 與視覺設計系統。
 
