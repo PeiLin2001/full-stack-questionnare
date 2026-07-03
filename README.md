@@ -2,7 +2,7 @@
 
 This is my first fullstack project, built during a vocational training program.
 
-DynamiQ is a fullstack survey (questionnaire) project, built with Angular and Spring boot.This project could be split into a user-facing side and an admin side. After logging in, users can browse a list of surveys, filter them by keyword/date, and fill out any survey that is currently open. Admins can log in to a separate console to manage surveys. Survey questions are provided by a backend API, and the frontend renders the appropriate input type based on each question's type.
+DynamiQ is a fullstack survey (questionnaire) project, built with Angular and Spring boot. This project could be split into a user-facing side and an admin side. After logging in, users can browse a list of surveys, filter them by keyword/date, and fill out any survey that is currently open. Admins can log in to a separate console to manage surveys. Survey questions are provided by a backend API, and the frontend renders the appropriate input type based on each question's type.
 
 The frontend is written in Angular, the backend in Java Spring Boot, and the full UI/UX and visual design system was designed in Figma.
 
